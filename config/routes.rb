@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'auctions/create'
+
+  get 'items/create'
+
   get 'sessions/new'
 
   get 'static_pages/home'
