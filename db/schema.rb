@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107163416) do
+ActiveRecord::Schema.define(version: 20161107182716) do
 
   create_table "auctions", force: :cascade do |t|
     t.integer "user_id"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20161107163416) do
     t.string "name"
     t.string "role"
     t.string "email"
-    t.string "password_hash"
+    t.string "password_digest"
   end
 
 end
