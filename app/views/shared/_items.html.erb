@@ -1,0 +1,16 @@
+<ul class="list-group">
+  <li class="panel panel-primary row list-group-item">
+    <div class="col-xs-3">Name</div>
+    <div class="col-xs-3">Price</div>
+    <div class="col-xs-3">Auction Begins</div>
+    <div class="col-xs-3">Auction Ends</div>
+  </li>
+  <% @items.each do |item| %>
+      <li class="panel row list-group-item">
+        <div class="col-xs-3"><%= item.name %></div>
+        <div class="col-xs-3"><%= price_formatter item.price %></div>
+        <div class="col-xs-3"><%= datetime_formatter item.start_datetime %></div>
+        <div class="col-xs-3"><%= datetime_formatter item.end_datetime %></div>
+      </li>
+  <% end %>
+</ul>

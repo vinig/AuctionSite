@@ -1,1 +1,7 @@
-<p>seller</p>
+<p>Sell another item? <%= link_to "Post Ad for new item!", items_new_path %></p>
+
+<p>Items you posted for Auction</p>
+<% if !@items.nil? %>
+    <%= render 'shared/items' %>
+<% end %>
+

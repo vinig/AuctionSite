@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @items = AuctionsController.new.find_user_auction_items(@user.id)
   end
 
   private
@@ -24,6 +25,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :role, :email, :password, :password_confirmation)
   end
-
 
 end

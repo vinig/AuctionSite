@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  get 'auctions/create'
+  post 'auctions/create'
 
-  get 'items/create'
+  get 'items/new'
+  post 'items/create'
+  resources :items
 
   get 'sessions/new'
 

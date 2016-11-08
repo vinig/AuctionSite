@@ -1,0 +1,22 @@
+<% provide(:title, 'Sell new item') %>
+<h1>Post Ad for new item!</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@item, url: items_create_path) do |f| %>
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+
+        <%= f.label :price %>
+        <%= f.text_field :price, class: 'form-control' %>
+
+        <%= f.label :start, 'Auction Start Date' %>
+        <%= f.date_select :start_datetime, class: 'form-control col-md-3' %>
+
+        <%= f.label :end, 'Auction End Date' %>
+        <%= f.date_select :end_datetime, class: 'form-control col-md-3' %>
+
+        <%= f.submit 'Post item', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

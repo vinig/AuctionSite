@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107182716) do
+ActiveRecord::Schema.define(version: 20161107222028) do
 
   create_table "auctions", force: :cascade do |t|
     t.integer "user_id"
     t.integer "item_id"
-    t.boolean "approved", default: false
-    t.boolean "valid",    default: false
+    t.boolean "approved",      default: false
+    t.boolean "valid_auction", default: false
   end
 
   create_table "bids", force: :cascade do |t|
