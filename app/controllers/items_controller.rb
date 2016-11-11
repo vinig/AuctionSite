@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    require 'pry'; binding.pry
     if (val = @item.save) && AuctionsController.new.create_auction_for_item(current_user.id, @item.id, val)
       flash[:success] = 'Item created successfully!'
       redirect_to user_path(id: current_user.id)
