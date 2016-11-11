@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
+      IncomeController.new.create_income_account(@user.id) if is_admin? || is_seller?
       flash[:success] = 'Successfully Signed Up!'
       redirect_to @user
     else

@@ -1,2 +1,6 @@
-<h1>Income#show</h1>
-<p>Find me in app/views/income/show.html.erb</p>
+<h3>Your Earnings!</h3>
+<br>
+<div class="row form-group">
+  <p class="col-md-2">Total</p>
+  <p class="col-md-2"><%= price_formatter @income.income %></p>
+</div>
