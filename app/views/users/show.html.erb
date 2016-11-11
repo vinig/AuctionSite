@@ -1,9 +1,11 @@
-<h3>Welcome <%= @user.name %>! </h3>
-
-<% if @user.role == 'Administrator' %>
-    <%= render 'shared/admin_show' %>
-<% elsif @user.role == 'Seller' %>
-    <%= render 'shared/seller_show' %>
+<h3>Your Profile, <%= @user.name %>!</h3>
+<br>
+<% if @user.role == 'Administrator' || @user.role == 'Seller' %>
+    <%= link_to 'View Earnings', '#', class: 'btn btn-info' %>
+    <%= link_to 'Manage Items', all_items_path, class: 'btn btn-primary' %>
 <% else %>
-    <%= render 'shared/bidder_show' %>
+    <%= link_to 'View Bids', '#', class: 'btn btn-success' %>
+<% end %>
+<% if @user.role == 'Seller' %>
+    <%= link_to 'Post new item', items_new_path, class: 'btn btn-info' %>
 <% end %>

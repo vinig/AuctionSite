@@ -11,6 +11,7 @@
         <div class="col-xs-3"><%= price_formatter item.price %></div>
         <div class="col-xs-3"><%= datetime_formatter item.start_datetime %></div>
         <div class="col-xs-3"><%= datetime_formatter item.end_datetime %></div>
+        <%= link_to 'View', item_path(id: item.id), method: :get, class: 'btn btn-primary' %>
       </li>
   <% end %>
 </ul>

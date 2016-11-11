@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
+  get 'income/show'
+
   post 'auctions/create'
+  put '/auctions/approve-item/:id', to: 'auctions#approve_item'
 
   get 'items/new'
   post 'items/create'
+  get '/all-items', to: 'items#all_items'
   resources :items
 
   get 'sessions/new'
 
-  get 'static_pages/home'
+  get '/home', to: 'static_pages#home'
+  root to: redirect('/home')
 
-  root 'static_pages#home'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'

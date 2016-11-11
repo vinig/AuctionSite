@@ -17,8 +17,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @items = AuctionsController.new.find_user_auction_items(@user.id)
   end
+
 
   private
 

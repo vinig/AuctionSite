@@ -1,0 +1,41 @@
+<% provide(:title, 'Item Details') %>
+<h1><%= @item.name %></h1>
+
+<div class="form-horizontal">
+  <div class="form-group">
+    <label for="name" class="col-md-2">Name</label>
+    <label for="item-name"><%= @item.name %></label>
+  </div>
+
+  <div class="form-group">
+    <label for="price" class="col-md-2">Price</label>
+    <label for="item-price"><%= price_formatter @item.price %></label>
+  </div>
+
+  <div class="form-group">
+    <label for="start-date" class="col-md-2">Start Date</label>
+    <label for="item-start-date"><%= datetime_formatter @item.start_datetime %></label>
+  </div>
+
+  <div class="form-group">
+    <label for="end-date" class="col-md-2">End Date</label>
+    <label for="item-end-date"><%= datetime_formatter @item.end_datetime %></label>
+  </div>
+
+  <% if @is_admin || @is_seller %>
+    <%= link_to 'Delete', "/items/#{@item.id}", method: :delete, class: 'btn btn-danger' %>
+  <% end %>
+
+  <% if @is_admin %>
+      <% link_name = !auction_eligible?(@item.id) ? 'Approve' : 'Disapprove' %>
+      <%= link_to link_name, "/auctions/approve-item/#{@item.id}", method: :put, class: 'btn btn-primary' %>
+  <% end %>
+
+  <% if !@is_admin && !@is_seller %>
+      <div class="form-group">
+        <label for="bid">Bid Value</label>
+        <input type="text" class="form-control"placeholder="Bid">
+      </div>
+      <%= link_to 'Bid', '#', methods: :put, class: 'btn btn-primary' %>
+  <% end %>
+</div>

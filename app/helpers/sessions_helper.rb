@@ -15,4 +15,12 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
+
+  def is_admin?
+    current_user.role == 'Administrator'
+  end
+
+  def is_seller?
+    current_user.role == 'Seller'
+  end
 end
