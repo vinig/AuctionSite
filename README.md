@@ -9,9 +9,10 @@
 * Multiple bidders can bid for the same item.
 * A bidder can re-bid on the same item.
 
-Steps to install the application:
+## Steps to install the application:
 
 * Ruby version >= 2.2.1p85
+
 If you don't have ruby installed on your machine, please follow the steps listed [here](https://www.ruby-lang.org/en/documentation/installation/)
 
 * You can clone this project:
