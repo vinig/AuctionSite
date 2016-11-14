@@ -20,12 +20,11 @@ class BidsController < ApplicationController
     Bid.find_by(user_id: user_id, item_id: item_id)
   end
 
-  def find_highest_bids_for_item(item_id)
-    bids =  Bid.where(item_id: item_id)
+  def find_highest_bids_for_item(item)
+    bids =  Bid.where(item_id: item.id)
     highest_bid = bids.order(price: :desc).limit(1)
-    require 'pry'; binding.pry
     if !highest_bid.empty?
-      item_update_winner(item_id, highest_bid[0].user_id)
+      ItemsController.new.item_update_winner(item, highest_bid[0].user_id)
     end
     highest_bid
   end
@@ -49,9 +48,16 @@ class BidsController < ApplicationController
     zip = []
     all_items.each_with_index { |item, idx|
       if !item.nil?
+        check_if_auction_ended(item) if !item.sold
         zip << [all_bids[idx], item]
       end
     }
     zip
+  end
+
+  def check_if_auction_ended(item)
+    if !(item.end_datetime >= Time.now)
+      ItemsController.new.update_item_auction_local(item)
+    end
   end
 end

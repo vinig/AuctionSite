@@ -56,9 +56,16 @@ class ItemsController < ApplicationController
 
   def update_item_auction
     item = Item.find_by_id(params[:id])
+    update_item_auction_local(item)
+    respond_to do |format|
+      format.json { render nothing: true, status: 200 }
+    end
+  end
+
+  def update_item_auction_local(item)
     mark_sold(item)
     auction = AuctionsController.new.set_auction_invalid(item.id) # for seller
-    bid = BidsController.new.find_highest_bids_for_item(item.id) # for bidder
+    bid = BidsController.new.find_highest_bids_for_item(item) # for bidder
 
     if !bid.empty?
       admin = UsersController.new.find_admin
@@ -67,16 +74,13 @@ class ItemsController < ApplicationController
       incomeController.update_income(admin.id, amount*0.05)
       incomeController.update_income(auction.user_id, amount*0.95)
     end
-
-    respond_to do |format|
-      format.json { render nothing: true, status: 200 }
-    end
   end
 
-  def item_update_winner(item_id, user_id)
-    item = Item.find_by_id(item_id)
-    item.update_attributes(winner: user_id)
-    item.save
+  def item_update_winner(item, user_id)
+    if item.winner.nil?
+      item.update_attributes(winner: user_id)
+      item.save(validate: false)
+    end
   end
 
   def get_items(item_ids)
@@ -87,7 +91,7 @@ class ItemsController < ApplicationController
 
   def mark_sold(item)
     item.update_attributes(sold: true)
-    item.save
+    item.save(validate: false)
   end
 
   def item_params
