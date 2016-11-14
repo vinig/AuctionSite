@@ -21,20 +21,17 @@
       <div class="form-group">
         <%= f.label :start, 'Auction Start Date', class: 'col-sm-2 control-label'%>
         <div class="col-sm-10">
-          <%= f.date_select :start_datetime, class: 'datepicker' %>
+          <%= f.datetime_select :start_datetime, class: 'form-control' %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :end, 'Auction End Date', class: 'col-sm-2 control-label'%>
         <div class="col-sm-10">
-          <%= f.date_select :end_datetime, class: 'datepicker' %>
+          <%= f.datetime_select :end_datetime, class: 'form-control' %>
         </div>
       </div>
 
-      <%= f.submit 'Post item', class: 'btn btn-primary col-sm-2' %>
+      <%= f.submit 'Post item', class: 'btn btn-primary col-sm-offset-2 col-sm-2' %>
     <% end %>
 </div>
-<script type="text/javascript">
-
-</script>
