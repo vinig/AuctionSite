@@ -12,8 +12,7 @@
 Steps to install the application:
 
 * Ruby version >= 2.2.1p85
-
-...If you don't have ruby installed on your machine, please follow the steps listed [here](https://www.ruby-lang.org/en/documentation/installation/)
+If you don't have ruby installed on your machine, please follow the steps listed [here](https://www.ruby-lang.org/en/documentation/installation/)
 
 * You can clone this project:
 ```
@@ -39,22 +38,22 @@ Visit localhost:3000
 * **Account** gives you access to your **Profile** (actions) and **Log out**.
 * All the valid/on-going auctions can be viewed through **Sale**. 
 * **View** gives you access to the item details like original price, auction start and end date.
-..*A Bidder can bid by visiting **View**. She can Re-bid too.
+A Bidder can bid by visiting **View**. She can Re-bid too.
 
 ### Admin
-* **View Earnings** to view the total commission earned so far.
-* **Manage Items** to view the list of all the items valid/invalid for auction.
-* **View** gives you access to approve/disapprove an auction and delete the auction.
++ **View Earnings** to view the total commission earned so far.
++ **Manage Items** to view the list of all the items valid/invalid for auction.
++ **View** gives you access to approve/disapprove an auction and delete the auction.
 
 ### Seller
-* **View Earnings** to view the total amount earned through the auctions.
-* **Post new Item** to put a new item for auction. You can select both date and time for auction to start and end.
-..*Start and End date-time should be greater than the current time.
-..*End date-time should be greater than Start date-time.
-* The item can only be viewed under **Sale** once approved by the admin.
++ **View Earnings** to view the total amount earned through the auctions.
++ **Post new Item** to put a new item for auction. You can select both date and time for auction to start and end.
+Start and End date-time should be greater than the current time.
+End date-time should be greater than Start date-time.
++ The item can only be viewed under **Sale** once approved by the admin.
 
 ### Bidder
-* **View Bids** to view all bid on each item.
-..*It informs the user of the verdict if she won or lost the bid. In case the auction hasn't ended, it shows Undecided.
++ **View Bids** to view all bid on each item.
+It informs the user of the verdict if she won or lost the bid. In case the auction hasn't ended, it shows Undecided.
 
 
