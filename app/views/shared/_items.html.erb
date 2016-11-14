@@ -15,7 +15,7 @@
         <% if auction_eligible?(item.id) %>
           <div id=<%="timer-#{item.id}"%> class="col-xs-2"></div>
           <script type="text/javascript">
-            $('<%="#timer-#{item.id}"%>').countdown('<%=item.end_datetime.strftime('%Y-%m-%d 23:59:59')%>', function(event) {
+            $('<%="#timer-#{item.id}"%>').countdown('<%=item.end_datetime.strftime('%Y-%m-%d %H:%M:%S')%>', function(event) {
               $(this).html(event.strftime('%D days %H:%M:%S'));
             }).on('finish.countdown', function(event) {
               $(this).html('Auction ended!')

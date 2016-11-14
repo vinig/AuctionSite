@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
 
   def index
     if logged_in?
-      all_items = Item.where("start_datetime >= ?", Date.today)
+      all_items = Item.where("start_datetime >= ?", Time.now)
       @items = all_items.select {|i| auction_eligible?(i.id)}
     else
       redirect_to sessions_new_path

@@ -23,8 +23,9 @@ class BidsController < ApplicationController
   def find_highest_bids_for_item(item_id)
     bids =  Bid.where(item_id: item_id)
     highest_bid = bids.order(price: :desc).limit(1)
+    require 'pry'; binding.pry
     if !highest_bid.empty?
-      item_update_winner(item_id, highest_bid.user_id)
+      item_update_winner(item_id, highest_bid[0].user_id)
     end
     highest_bid
   end
