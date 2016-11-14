@@ -31,6 +31,7 @@
       <%= link_to link_name, "/auctions/approve-item/#{@item.id}", method: :put, class: 'btn btn-primary' %>
   <% end %>
 
+  <input type="hidden" name="item-disable" value="<%= @item.sold || !item_valid?(@item.end_datetime) %>">
   <% if !@is_admin && !@is_seller %>
     <% if !@bid %>
       <%= form_for(:bid, url: '/bids') do |f| %>
@@ -52,3 +53,12 @@
     <% end %>
   <% end %>
 </div>
+<script type="text/javascript">
+  $(function() {
+    var value = $("input[name='item-disable']").val();
+    if (value == "true") {
+      document.getElementById("bid_price").disabled = true;
+      document.getElementsByName("commit")[0].disabled = true;
+    }
+  });
+</script>
