@@ -12,18 +12,17 @@
         <div class="col-xs-2"><%= price_formatter item.price %></div>
         <div class="col-xs-2"><%= datetime_formatter item.start_datetime %></div>
         <div class="col-xs-2"><%= datetime_formatter item.end_datetime %></div>
-        <% if auction_eligible?(item.id) %>
+        <% if auction_eligible?(item.id) && item_valid?(item.end_datetime) %>
           <div id=<%="timer-#{item.id}"%> class="col-xs-2"></div>
           <script type="text/javascript">
             $('<%="#timer-#{item.id}"%>').countdown('<%=item.end_datetime.strftime('%Y-%m-%d %H:%M:%S')%>', function(event) {
               $(this).html(event.strftime('%D days %H:%M:%S'));
             }).on('finish.countdown', function(event) {
-              $(this).html('Auction ended!')
-                  .parent().addClass('disabled');
+              $(this).html('Auction ended!').parent().addClass('disabled');
               $.ajax('<%= "/update-item-auction/#{item.id}"%>', {method: 'PUT'});
             });
           </script>
-          <% elsif item.sold %>
+          <% elsif item.sold || !item_valid?(item.end_datetime) %>
             <div class="col-xs-2">Auction ended</div>
           <% else %>
             <div class="col-xs-2">Timer not started</div>
