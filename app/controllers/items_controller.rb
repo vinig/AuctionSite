@@ -21,6 +21,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @is_admin = is_admin?
     @is_seller = is_seller?
+    if !(@is_admin || @is_seller)
+      @bid = BidsController.new.user_bid_for_item(current_user.id, @item.id)
+    end
   end
 
   def index
@@ -48,10 +51,44 @@ class ItemsController < ApplicationController
     auction = Auction.find_by_item_id(params[:id])
     Auction.destroy(auction.id)
     Item.destroy(params[:id])
-    redirect_to current_user
+    redirect_to all_items_path
+  end
+
+  def update_item_auction
+    item = Item.find_by_id(params[:id])
+    mark_sold(item)
+    auction = AuctionsController.new.set_auction_invalid(item.id) # for seller
+    bid = BidsController.new.find_highest_bids_for_item(item.id) # for bidder
+
+    if !bid.empty?
+      admin = UsersController.new.find_admin
+      amount = bid[0].price
+      incomeController = IncomeController.new
+      incomeController.update_income(admin.id, amount*0.05)
+      incomeController.update_income(auction.user_id, amount*0.95)
+    end
+
+    respond_to do |format|
+      format.json { render nothing: true, status: 200 }
+    end
+  end
+
+  def item_update_winner(item_id, user_id)
+    item = Item.find_by_id(item_id)
+    item.update_attributes(winner: user_id)
+    item.save
+  end
+
+  def get_items(item_ids)
+    item_ids.collect { |i| Item.find_by_id(i) }
   end
 
   private
+
+  def mark_sold(item)
+    item.update_attributes(sold: true)
+    item.save
+  end
 
   def item_params
     params.require(:item).permit(:name, :price, :start_datetime, :end_datetime)

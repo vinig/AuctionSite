@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'items/new'
   post 'items/create'
   get '/all-items', to: 'items#all_items'
+  put '/update-item-auction/:id', to: 'items#update_item_auction'
   resources :items
 
   get 'sessions/new'
@@ -22,4 +23,5 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
 
   resources :income
+  resources :bids
 end

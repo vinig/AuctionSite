@@ -1,16 +1,33 @@
 <ul class="list-group">
   <li class="panel panel-primary row list-group-item">
-    <div class="col-xs-3">Name</div>
-    <div class="col-xs-3">Price</div>
-    <div class="col-xs-3">Auction Begins</div>
-    <div class="col-xs-3">Auction Ends</div>
+    <div class="col-xs-2">Name</div>
+    <div class="col-xs-2">Price</div>
+    <div class="col-xs-2">Auction Begins</div>
+    <div class="col-xs-2">Auction Ends</div>
+    <div class="col-xs-2">Time Left</div>
   </li>
   <% @items.each do |item| %>
       <li class="panel row list-group-item">
-        <div class="col-xs-3"><%= item.name %></div>
-        <div class="col-xs-3"><%= price_formatter item.price %></div>
-        <div class="col-xs-3"><%= datetime_formatter item.start_datetime %></div>
-        <div class="col-xs-3"><%= datetime_formatter item.end_datetime %></div>
+        <div class="col-xs-2"><%= item.name %></div>
+        <div class="col-xs-2"><%= price_formatter item.price %></div>
+        <div class="col-xs-2"><%= datetime_formatter item.start_datetime %></div>
+        <div class="col-xs-2"><%= datetime_formatter item.end_datetime %></div>
+        <% if auction_eligible?(item.id) %>
+          <div id=<%="timer-#{item.id}"%> class="col-xs-2"></div>
+          <script type="text/javascript">
+            $('<%="#timer-#{item.id}"%>').countdown('<%=item.end_datetime.strftime('%Y-%m-%d 23:59:59')%>', function(event) {
+              $(this).html(event.strftime('%D days %H:%M:%S'));
+            }).on('finish.countdown', function(event) {
+              $(this).html('Auction ended!')
+                  .parent().addClass('disabled');
+              $.ajax('<%= "/update-item-auction/#{item.id}"%>', {method: 'PUT'});
+            });
+          </script>
+          <% elsif item.sold %>
+            <div class="col-xs-2">Auction ended</div>
+          <% else %>
+            <div class="col-xs-2">Timer not started</div>
+          <% end %>
         <%= link_to 'View', item_path(id: item.id), method: :get, class: 'btn btn-primary' %>
       </li>
   <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107222028) do
+ActiveRecord::Schema.define(version: 20161114072127) do
 
   create_table "auctions", force: :cascade do |t|
     t.integer "user_id"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20161107222028) do
     t.decimal  "price",          precision: 10, scale: 2
     t.datetime "start_datetime"
     t.datetime "end_datetime"
+    t.boolean  "sold",                                    default: false
+    t.integer  "winner"
   end
 
   create_table "users", force: :cascade do |t|

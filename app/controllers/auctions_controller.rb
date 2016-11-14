@@ -27,4 +27,11 @@ class AuctionsController < ApplicationController
     auction = Auction.new(user_id: user_id, item_id: item_id, valid_auction: validity)
     auction.save
   end
+
+  def set_auction_invalid(item_id)
+    auction = Auction.find_by_item_id(item_id)
+    auction.update_attributes(valid_auction: false)
+    auction.save
+    auction
+  end
 end

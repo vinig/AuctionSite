@@ -1,22 +1,40 @@
 <% provide(:title, 'Sell new item') %>
 <h1>Post Ad for new item!</h1>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<div class="form-horizontal">
     <%= form_for(@item, url: items_create_path) do |f| %>
-        <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control' %>
 
-        <%= f.label :price %>
-        <%= f.text_field :price, class: 'form-control' %>
+      <div class="form-group">
+        <%= f.label :name, class: 'col-sm-2 control-label'%>
+        <div class="col-sm-10">
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+      </div>
 
-        <%= f.label :start, 'Auction Start Date' %>
-        <%= f.date_select :start_datetime, class: 'form-control col-md-3' %>
+      <div class="form-group">
+        <%= f.label :price, class: 'col-sm-2 control-label'%>
+        <div class="col-sm-10">
+          <%= f.text_field :price, class: 'form-control' %>
+        </div>
+      </div>
 
-        <%= f.label :end, 'Auction End Date' %>
-        <%= f.date_select :end_datetime, class: 'form-control col-md-3' %>
+      <div class="form-group">
+        <%= f.label :start, 'Auction Start Date', class: 'col-sm-2 control-label'%>
+        <div class="col-sm-10">
+          <%= f.date_select :start_datetime, class: 'datepicker' %>
+        </div>
+      </div>
 
-        <%= f.submit 'Post item', class: 'btn btn-primary' %>
+      <div class="form-group">
+        <%= f.label :end, 'Auction End Date', class: 'col-sm-2 control-label'%>
+        <div class="col-sm-10">
+          <%= f.date_select :end_datetime, class: 'datepicker' %>
+        </div>
+      </div>
+
+      <%= f.submit 'Post item', class: 'btn btn-primary col-sm-2' %>
     <% end %>
-  </div>
 </div>
+<script type="text/javascript">
+
+</script>

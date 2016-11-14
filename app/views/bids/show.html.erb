@@ -1,0 +1,28 @@
+<h3>Your Bids!</h3>
+<br>
+<p>Note: Items that are missing from the list, may have been deleted by the administrator.</p>
+<br>
+<ul class="list-group">
+  <li class="panel panel-primary row list-group-item">
+    <div class="col-xs-4">Item Name</div>
+    <div class="col-xs-4">Bid</div>
+    <div class="col-xs-4">Verdict</div>
+  </li>
+  <% @bid_items.each do |bd| %>
+      <li class="panel row list-group-item">
+        <div class="col-xs-4"><%= bd[1].name %></div>
+        <div class="col-xs-4"><%= price_formatter bd[0].price %></div>
+        <div class="col-xs-4">
+          <% if bd[1].sold %>
+              <% if bd[0].user_id == bd[1].winner %>
+                Won
+              <% else %>
+                Lost
+              <% end %>
+          <% else %>
+            Undecided
+          <% end %>
+        </div>
+      </li>
+  <% end %>
+</ul>

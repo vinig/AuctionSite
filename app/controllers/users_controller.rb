@@ -20,6 +20,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def find_admin
+    User.find_by_role('Administrator')
+  end
 
   private
 

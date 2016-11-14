@@ -26,16 +26,29 @@
     <%= link_to 'Delete', "/items/#{@item.id}", method: :delete, class: 'btn btn-danger' %>
   <% end %>
 
-  <% if @is_admin %>
+  <% if @is_admin && !@item.sold %>
       <% link_name = !auction_eligible?(@item.id) ? 'Approve' : 'Disapprove' %>
       <%= link_to link_name, "/auctions/approve-item/#{@item.id}", method: :put, class: 'btn btn-primary' %>
   <% end %>
 
   <% if !@is_admin && !@is_seller %>
-      <div class="form-group">
-        <label for="bid">Bid Value</label>
-        <input type="text" class="form-control"placeholder="Bid">
-      </div>
-      <%= link_to 'Bid', '#', methods: :put, class: 'btn btn-primary' %>
+    <% if !@bid %>
+      <%= form_for(:bid, url: '/bids') do |f| %>
+        <div class="row form-inline">
+          <%= f.label :bid, class: 'col-md-2'%>
+          <%= f.text_field :price, class: 'form-control col-md-6' %>
+          <%= f.text_field :item_id, value: @item.id, class: 'hidden' %>
+        </div>
+        <%= f.submit 'Bid', class: 'col-md-2 btn btn-primary' %>
+      <% end %>
+    <% else %>
+      <%= form_for(:bid, url: "/bids/#{@bid.id}", method: :put) do |f| %>
+        <div class="row form-inline">
+          <%= f.label :bid, class: 'col-md-2'%>
+          <%= f.text_field :price, value: precision_formatter(@bid.price), class: 'form-control col-md-6' %>
+        </div>
+        <%= f.submit 'Re-Bid', class: 'col-md-2 btn btn-primary' %>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
